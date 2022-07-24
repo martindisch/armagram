@@ -3,10 +3,23 @@ use regex::Regex;
 use std::io::{self, BufRead};
 
 fn main() {
+    let mut players = vec![];
+
     let stdin = io::stdin();
     for line in stdin.lock().lines() {
         if let Some(event) = PlayerEvent::from_log(&line.unwrap()) {
-            println!("{event:?}");
+            match event {
+                PlayerEvent::Connected(player) => players.push(player),
+                PlayerEvent::Disconnected(player) => {
+                    let first_position = players
+                        .iter()
+                        .position(|name| name == &player)
+                        .unwrap();
+                    players.remove(first_position);
+                }
+            }
+
+            println!("{} players connected: {players:#?}", players.len());
         }
     }
 }
