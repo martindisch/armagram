@@ -4,11 +4,14 @@ use regex::Regex;
 /// The connection state change and affected player name.
 #[derive(Debug, PartialEq)]
 pub enum PlayerEvent {
+    /// The player has connected.
     Connected(String),
+    /// The player has disconnected.
     Disconnected(String),
 }
 
 impl PlayerEvent {
+    /// Constructs a connection event from the given log line if applicable.
     pub fn from_log(line: &str) -> Option<Self> {
         lazy_static! {
             static ref RE: Regex =
