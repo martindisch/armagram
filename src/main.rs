@@ -1,27 +1,15 @@
 use std::io::{self, BufRead};
 
-mod events;
-
-use events::PlayerEvent;
+use armagram::{PlayerEvent, PlayerList};
 
 fn main() {
-    let mut players = vec![];
+    let mut player_list = PlayerList::new();
 
     let stdin = io::stdin();
     for line in stdin.lock().lines() {
         if let Some(event) = PlayerEvent::from_log(&line.unwrap()) {
-            match event {
-                PlayerEvent::Connected(player) => players.push(player),
-                PlayerEvent::Disconnected(player) => {
-                    let first_position = players
-                        .iter()
-                        .position(|name| name == &player)
-                        .unwrap();
-                    players.remove(first_position);
-                }
-            }
-
-            println!("{} players connected: {players:#?}", players.len());
+            player_list.update(event);
+            println!("{player_list}");
         }
     }
 }
