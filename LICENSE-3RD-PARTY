@@ -3,6 +3,7 @@ The MIT License
 
 applies to:
 - dotenv, Copyright (c) 2014 Santiago Lapresta and contributors
+- lazy_static, Copyright (c) 2010 The Rust Project Developers
 - regex, Copyright (c) 2014 The Rust Project Developers
 - reqwest, Copyright (c) 2016 Sean McArthur
 -------------------------------------------------------------------------------
@@ -28,6 +29,7 @@ SOFTWARE.
 The Apache License
 
 applies to:
+- lazy_static
 - regex
 - reqwest
 -------------------------------------------------------------------------------

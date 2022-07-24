@@ -1,3 +1,4 @@
+use lazy_static::lazy_static;
 use regex::Regex;
 use std::io::{self, BufRead};
 
@@ -19,11 +20,13 @@ enum PlayerEvent {
 
 impl PlayerEvent {
     fn from_log(line: &str) -> Option<Self> {
-        let event_regex =
-            Regex::new(r"Player (.+) (connected|disconnected)(.+)?\.")
-                .unwrap();
+        lazy_static! {
+            static ref RE: Regex =
+                Regex::new(r"Player (.+) (connected|disconnected)(.+)?\.")
+                    .unwrap();
+        }
 
-        if let Some(captures) = event_regex.captures(line) {
+        if let Some(captures) = RE.captures(line) {
             if &captures[2] == "connected" {
                 return Some(Self::Connected(captures[1].to_string()));
             } else {
