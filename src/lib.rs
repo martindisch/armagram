@@ -5,6 +5,8 @@
 
 mod events;
 mod state;
+mod telegram;
 
 pub use events::PlayerEvent;
 pub use state::PlayerList;
+pub use telegram::Telegram;
