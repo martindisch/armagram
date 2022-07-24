@@ -36,12 +36,12 @@ impl PlayerList {
 
 impl Display for PlayerList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{} players connected: {:#?}",
-            self.players.len(),
-            self.players,
-        )
+        write!(f, "{} players connected:", self.players.len())?;
+        for player in &self.players {
+            write!(f, "\n- {player}")?;
+        }
+
+        Ok(())
     }
 }
 
