@@ -1,7 +1,13 @@
 use regex::Regex;
+use std::io::{self, BufRead};
 
 fn main() {
-    println!("Hello, world!");
+    let stdin = io::stdin();
+    for line in stdin.lock().lines() {
+        if let Some(event) = PlayerEvent::from_log(&line.unwrap()) {
+            println!("{event:?}");
+        }
+    }
 }
 
 /// The connection state change and affected player name.
