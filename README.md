@@ -11,7 +11,8 @@ environment variables to be set:
 - `CHAT_ID` with the ID of the chat you have with your bot
 
 You can either make sure these are set in the environment, or copy and modify
-`.env.TEMPLATE` to a `.env` file and set these up in there.
+`.env.TEMPLATE` to a `.env` file (in the directory you intend to start the
+server from) and set these up in there.
 
 Once this is done, just start your Arma server as usual, but make sure to
 pipe its output into armagram. If you would like to continue seeing the output
