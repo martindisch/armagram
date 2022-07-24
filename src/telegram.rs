@@ -31,6 +31,8 @@ impl Telegram {
                 ("text", message),
             ]))
             .send()
+            // If Telegram/network fails there's not really anything useful
+            // to do, so just swallow the error
             .ok();
     }
 }

@@ -22,7 +22,7 @@ impl PlayerList {
                     .players
                     .iter()
                     .position(|name| name == &player)
-                    .unwrap();
+                    .expect("Disconnected player that wasn't connected");
                 self.players.remove(first_position);
             }
         }
