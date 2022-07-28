@@ -1,3 +1,4 @@
+use log::error;
 use std::fmt::Display;
 
 use crate::PlayerEvent;
@@ -18,12 +19,13 @@ impl PlayerList {
         match event {
             PlayerEvent::Connected(player) => self.players.push(player),
             PlayerEvent::Disconnected(player) => {
-                let first_position = self
-                    .players
-                    .iter()
-                    .position(|name| name == &player)
-                    .expect("Disconnected player that wasn't connected");
-                self.players.remove(first_position);
+                if let Some(first_position) =
+                    self.players.iter().position(|name| name == &player)
+                {
+                    self.players.remove(first_position);
+                } else {
+                    error!("Player {player} disconnected but was not in player list");
+                }
             }
         }
     }

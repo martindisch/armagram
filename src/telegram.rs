@@ -1,3 +1,4 @@
+use log::error;
 use reqwest::blocking::Client;
 use std::collections::HashMap;
 
@@ -24,15 +25,16 @@ impl Telegram {
 
     /// Sends the given message to the configured chat.
     pub fn send(&self, message: &str) {
-        self.client
+        if let Err(_) = self
+            .client
             .post(&self.endpoint)
             .form(&HashMap::from([
                 ("chat_id", self.chat_id.as_ref()),
                 ("text", message),
             ]))
             .send()
-            // If Telegram/network fails there's not really anything useful
-            // to do, so just swallow the error
-            .ok();
+        {
+            error!("Unable to send message to telegram: {message}");
+        }
     }
 }

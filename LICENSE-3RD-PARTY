@@ -4,8 +4,10 @@ The MIT License
 applies to:
 - dotenv, Copyright (c) 2014 Santiago Lapresta and contributors
 - lazy_static, Copyright (c) 2010 The Rust Project Developers
+- log, Copyright (c) 2014 The Rust Project Developers
 - regex, Copyright (c) 2014 The Rust Project Developers
 - reqwest, Copyright (c) 2016 Sean McArthur
+- systemd-journal-logger
 -------------------------------------------------------------------------------
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -30,8 +32,10 @@ The Apache License
 
 applies to:
 - lazy_static
+- log
 - regex
 - reqwest
+- systemd-journal-logger
 -------------------------------------------------------------------------------
                                  Apache License
                            Version 2.0, January 2004

@@ -1,4 +1,5 @@
 use dotenv::dotenv;
+use log::LevelFilter;
 use std::{
     env,
     io::{self, BufRead},
@@ -8,6 +9,10 @@ use armagram::{PlayerEvent, PlayerList, Telegram};
 
 fn main() {
     dotenv().ok();
+
+    systemd_journal_logger::init().expect("Unable to initialize systemd logs");
+    log::set_max_level(LevelFilter::Info);
+
     let token = env::var("TOKEN").expect("TOKEN variable is not set");
     let chat_id = env::var("CHAT_ID").expect("CHAT_ID variable is not set");
     let telegram = Telegram::new(token, chat_id);
