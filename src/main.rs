@@ -1,5 +1,5 @@
 use dotenv::dotenv;
-use log::LevelFilter;
+use log::{info, LevelFilter};
 use std::{
     env,
     io::{self, BufRead},
@@ -12,6 +12,7 @@ fn main() {
 
     systemd_journal_logger::init().expect("Unable to initialize systemd logs");
     log::set_max_level(LevelFilter::Info);
+    info!("armagram starting");
 
     let token = env::var("TOKEN").expect("TOKEN variable is not set");
     let chat_id = env::var("CHAT_ID").expect("CHAT_ID variable is not set");
