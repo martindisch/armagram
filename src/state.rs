@@ -1,4 +1,4 @@
-use log::error;
+use log::warn;
 use std::fmt::Display;
 
 use crate::PlayerEvent;
@@ -24,7 +24,7 @@ impl PlayerList {
                 {
                     self.players.remove(first_position);
                 } else {
-                    error!("Player {player} disconnected but was not in player list");
+                    warn!("Player {player} disconnected but was not in player list");
                 }
             }
         }
