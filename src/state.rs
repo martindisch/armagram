@@ -6,12 +6,16 @@ use crate::PlayerEvent;
 /// Maintains the names of the players currently on the server.
 pub struct PlayerList {
     players: Vec<String>,
+    is_busy: bool,
 }
 
 impl PlayerList {
     /// Initializes a new instance.
     pub fn new() -> Self {
-        Self { players: vec![] }
+        Self {
+            players: vec![],
+            is_busy: false,
+        }
     }
 
     /// Updates the state with the given event.
@@ -28,11 +32,22 @@ impl PlayerList {
                 }
             }
         }
+
+        if self.players.len() >= 3 {
+            self.is_busy = true;
+        } else if self.players.len() == 0 {
+            self.is_busy = false;
+        }
     }
 
     /// Returns the player names.
     pub fn players(&self) -> &[String] {
         &self.players
+    }
+
+    /// Returns true when at least 3 players have been active recently.
+    pub fn is_busy(&self) -> bool {
+        self.is_busy
     }
 }
 
@@ -82,5 +97,24 @@ mod tests {
 
         player_list.update(PlayerEvent::Disconnected("johndoe".into()));
         assert_eq!(["janedoe", "johndoe"], player_list.players());
+    }
+
+    #[test]
+    fn to_busy_and_back() {
+        let mut player_list = PlayerList::new();
+
+        player_list.update(PlayerEvent::Connected("one".into()));
+        assert!(player_list.is_busy() == false);
+        player_list.update(PlayerEvent::Connected("two".into()));
+        assert!(player_list.is_busy() == false);
+        player_list.update(PlayerEvent::Connected("three".into()));
+        assert!(player_list.is_busy() == true);
+
+        player_list.update(PlayerEvent::Disconnected("one".into()));
+        assert!(player_list.is_busy() == true);
+        player_list.update(PlayerEvent::Disconnected("two".into()));
+        assert!(player_list.is_busy() == true);
+        player_list.update(PlayerEvent::Disconnected("three".into()));
+        assert!(player_list.is_busy() == false);
     }
 }

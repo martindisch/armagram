@@ -24,7 +24,10 @@ fn main() {
     for line in stdin.lock().lines() {
         if let Some(event) = PlayerEvent::from_log(&line.unwrap()) {
             player_list.update(event);
-            telegram.send(&player_list.to_string());
+
+            if player_list.is_busy() {
+                telegram.send(&player_list.to_string());
+            }
         }
     }
 }
