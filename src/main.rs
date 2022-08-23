@@ -25,8 +25,11 @@ fn main() {
         if let Some(event) = PlayerEvent::from_log(&line.unwrap()) {
             player_list.update(event);
 
+            let output = player_list.to_string();
+            info!("{output}");
+
             if player_list.is_busy() {
-                telegram.send(&player_list.to_string());
+                telegram.send(&output);
             }
         }
     }
