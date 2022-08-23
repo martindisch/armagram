@@ -35,7 +35,7 @@ impl PlayerList {
 
         if self.players.len() >= 3 {
             self.is_busy = true;
-        } else if self.players.len() == 0 {
+        } else if self.players.is_empty() {
             self.is_busy = false;
         }
     }

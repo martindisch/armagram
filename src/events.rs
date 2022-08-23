@@ -2,7 +2,7 @@ use lazy_static::lazy_static;
 use regex::Regex;
 
 /// The connection state change and affected player name.
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Eq)]
 pub enum PlayerEvent {
     /// The player has connected.
     Connected(String),

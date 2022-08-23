@@ -25,7 +25,7 @@ impl Telegram {
 
     /// Sends the given message to the configured chat.
     pub fn send(&self, message: &str) {
-        if let Err(_) = self
+        if self
             .client
             .post(&self.endpoint)
             .form(&HashMap::from([
@@ -33,6 +33,7 @@ impl Telegram {
                 ("text", message),
             ]))
             .send()
+            .is_err()
         {
             error!("Unable to send message to telegram: {message}");
         }
