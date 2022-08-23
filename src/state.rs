@@ -33,7 +33,7 @@ impl PlayerList {
             }
         }
 
-        if self.players.len() >= 3 {
+        if self.players.len() >= 2 {
             self.is_busy = true;
         } else if self.players.is_empty() {
             self.is_busy = false;
@@ -45,7 +45,7 @@ impl PlayerList {
         &self.players
     }
 
-    /// Returns true when at least 3 players have been active recently.
+    /// Returns true when at least 2 players have been active recently.
     pub fn is_busy(&self) -> bool {
         self.is_busy
     }
@@ -106,7 +106,7 @@ mod tests {
         player_list.update(PlayerEvent::Connected("one".into()));
         assert!(player_list.is_busy() == false);
         player_list.update(PlayerEvent::Connected("two".into()));
-        assert!(player_list.is_busy() == false);
+        assert!(player_list.is_busy() == true);
         player_list.update(PlayerEvent::Connected("three".into()));
         assert!(player_list.is_busy() == true);
 
